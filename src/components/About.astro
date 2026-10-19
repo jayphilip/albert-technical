@@ -1,0 +1,41 @@
+---
+import SectionHead from './SectionHead.astro';
+import { about, site } from '../data/site';
+---
+
+<section id="about" class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+  <SectionHead label="About" title={`Hi, I’m ${site.firstName}. <em class='text-accent'>I spent nearly thirty years teaching technology.</em>`} />
+
+  <div class="md:grid md:grid-cols-12 md:gap-x-8">
+    <div class="md:col-span-9 md:col-start-4 lg:col-span-7 lg:col-start-4">
+      <p class="text-[1.12rem] leading-relaxed text-ink/85">{about.bio}</p>
+
+      <details class="group mt-10 border-t border-ink">
+        <summary class="flex cursor-pointer list-none items-baseline justify-between py-4 hover:text-accent">
+          <span class="font-serif text-xl">Full curriculum vitae</span>
+          <span class="text-sm text-muted group-open:hidden">Show +</span>
+          <span class="hidden text-sm text-muted group-open:inline">Hide −</span>
+        </summary>
+        <dl class="pb-4">
+          {
+            about.record.map((group) => (
+              <div class="grid gap-x-8 gap-y-3 border-t border-rule py-5 sm:grid-cols-[9rem_1fr]">
+                <dt class="label pt-1 text-accent">{group.label}</dt>
+                <dd>
+                  <ul class="space-y-3">
+                    {group.entries.map((e) => (
+                      <li class="grid gap-x-6 gap-y-0.5 text-[0.95rem] leading-snug sm:grid-cols-[1fr_5.5rem]">
+                        <span>{e.text}</span>
+                        {e.when && <span class="text-sm text-muted tabular-nums sm:text-right">{e.when}</span>}
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </details>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,36 @@
+---
+import { home } from '../lib/paths';
+import { call, services, site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-night pb-20 text-cream/70 sm:pb-0">
+  <div class="mx-auto max-w-6xl px-4 text-sm sm:px-6">
+    <div class="grid gap-8 border-t border-cream/15 py-12 sm:grid-cols-3">
+      <div>
+        <p class="font-serif text-xl font-medium text-cream">
+          Albert <span class="text-accent-light italic">Technical</span> Consulting
+        </p>
+        <p class="mt-2 leading-relaxed">Technology help for nonprofits in {site.location.county}, {site.location.state}.</p>
+      </div>
+      <ul class="space-y-1">
+        {services.map((s) => <li><a href={`${home}#services`} class="hover:text-cream">{s.title}</a></li>)}
+      </ul>
+      <ul class="space-y-1">
+        <li>{site.principal}</li>
+        <li>
+          <a href={`mailto:${site.contact.email}`} data-track="email_click" data-location="footer" class="hover:text-cream">
+            {site.contact.email}
+          </a>
+        </li>
+        <li class="pt-2">
+          <a href={`${home}#book`} data-track="book_click" data-location="footer" class="font-semibold text-accent-light hover:text-cream">
+            {call.cta} →
+          </a>
+        </li>
+      </ul>
+    </div>
+    <p class="border-t border-cream/10 py-6 text-cream/45">© {year} {site.business}</p>
+  </div>
+</footer>

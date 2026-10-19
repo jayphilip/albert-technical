@@ -1,0 +1,29 @@
+---
+import { call } from '../data/site';
+
+interface Props {
+  /** Where on the page the button sits; sent with the click event so placements can be compared. */
+  location: string;
+  tone?: 'light' | 'accent';
+}
+
+const { location, tone = 'accent' } = Astro.props;
+
+const tones = {
+  accent: 'bg-cta-deep text-white hover:bg-cta-deep-hover',
+  light: 'bg-cta text-on-cta hover:bg-cta-hover',
+};
+---
+
+<a
+  href="#book"
+  data-track="book_click"
+  data-location={location}
+  class:list={[
+    'group inline-flex items-center gap-3 rounded-sm px-6 py-3.5 text-[1.05rem] font-semibold transition-colors',
+    tones[tone],
+  ]}
+>
+  {call.cta}
+  <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+</a>

@@ -1,0 +1,21 @@
+---
+import SectionHead from './SectionHead.astro';
+import { services } from '../data/site';
+---
+
+<section id="services" class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+  <SectionHead label="Services" title="What I can <em class='text-accent'>fix for you.</em>" />
+
+  <div class="md:grid md:grid-cols-12 md:gap-x-8">
+    <ul class="grid gap-x-10 border-t border-ink sm:grid-cols-2 md:col-span-9 md:col-start-4">
+      {
+        services.map((s) => (
+          <li class="border-b border-rule py-5">
+            <h3 class="font-serif text-[1.35rem] leading-tight">{s.title}</h3>
+            <p class="mt-1.5 leading-snug text-ink/75">{s.line}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,32 @@
+---
+import SectionHead from './SectionHead.astro';
+import CtaButton from './CtaButton.astro';
+import { steps } from '../data/site';
+---
+
+<section id="how" class="border-y border-rule bg-paper-2">
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+    <SectionHead label="How it works" title="Three steps, <em class='text-accent'>starting with a free call.</em>" />
+
+    <div class="md:grid md:grid-cols-12 md:gap-x-8">
+      <div class="md:col-span-9 md:col-start-4">
+        <ol class="grid gap-8 sm:grid-cols-3 sm:gap-6">
+          {
+            steps.map((step, i) => (
+              <li class="border-t-2 border-ink pt-4">
+                <p class="font-serif text-[1.45rem] leading-tight">
+                  <span class="text-accent italic">{i + 1}.</span> {step.name}
+                </p>
+                <p class="mt-2 leading-snug text-ink/75">{step.detail}</p>
+              </li>
+            ))
+          }
+        </ol>
+        <p class="mt-8 text-ink/75">Optional monthly support afterward, if you want someone to call.</p>
+        <div class="mt-8">
+          <CtaButton location="how" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

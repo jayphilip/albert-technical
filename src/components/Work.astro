@@ -1,0 +1,44 @@
+---
+// Client proof. Renders nothing until real case studies or testimonials are added in site.ts.
+import SectionHead from './SectionHead.astro';
+import { caseStudies, testimonials } from '../data/site';
+---
+
+{
+  (caseStudies.length > 0 || testimonials.length > 0) && (
+    <section id="work" class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
+      <SectionHead label="Clients" title="Organizations <em class='text-accent'>I’ve helped.</em>" />
+      <div class="md:grid md:grid-cols-12 md:gap-x-8">
+        <div class="md:col-span-9 md:col-start-4">
+          {caseStudies.length > 0 && (
+            <div class="grid gap-x-8 border-t border-ink sm:grid-cols-2">
+              {caseStudies.map((c) => (
+                <article class="border-b border-rule py-6">
+                  <h3 class="font-serif text-[1.35rem] leading-tight">{c.organization}</h3>
+                  <p class="mt-2 leading-snug text-ink/75">{c.problem}</p>
+                  <p class="mt-2 leading-snug text-ink/75">{c.fix}</p>
+                  <p class="mt-2 font-semibold leading-snug">{c.result}</p>
+                </article>
+              ))}
+            </div>
+          )}
+          {testimonials.length > 0 && (
+            <div class="mt-12 space-y-10">
+              {testimonials.map((t) => (
+                <figure>
+                  <blockquote class="font-serif text-[1.6rem] leading-snug italic">“{t.quote}”</blockquote>
+                  <figcaption class="mt-3 text-sm">
+                    <span class="font-semibold">{t.name}</span>
+                    <span class="text-muted">
+                      {' '}· {t.title}, {t.organization}
+                    </span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}

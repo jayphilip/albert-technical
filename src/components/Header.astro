@@ -1,0 +1,40 @@
+---
+import { home } from '../lib/paths';
+import { call } from '../data/site';
+
+const links = [
+  { href: `${home}#services`, label: 'Services' },
+  { href: `${home}#how`, label: 'How it works' },
+  { href: `${home}#about`, label: 'About' },
+  { href: `${home}#faq`, label: 'FAQ' },
+];
+---
+
+<header class="border-b border-cream/10 bg-night text-cream">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-4 py-4 sm:px-6">
+    <a href={home} class="font-serif text-[1.2rem] leading-tight font-medium tracking-[-0.01em] sm:text-[1.4rem]">
+      Albert <span class="text-accent-light italic">Technical</span> Consulting
+    </a>
+    <nav aria-label="Primary" class="flex items-center gap-8">
+      <ul class="hidden gap-7 text-[0.95rem] lg:flex">
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href} class="text-cream/70 transition-colors hover:text-cream">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <a
+        href={`${home}#book`}
+        data-track="book_click"
+        data-location="header"
+        class="hidden rounded-sm bg-cta px-4 py-2 text-sm font-semibold whitespace-nowrap text-on-cta transition-colors hover:bg-cta-hover sm:inline-block"
+      >
+        {call.cta}
+      </a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,107 @@
+---
+import { asset, isDemo } from '../lib/paths';
+import '@fontsource-variable/newsreader/opsz.css';
+import '@fontsource-variable/newsreader/opsz-italic.css';
+import '@fontsource-variable/source-sans-3';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getImage } from 'astro:assets';
+import { about, faqs, site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${site.business} | ${site.seoTagline}`,
+  description = site.description,
+} = Astro.props;
+
+// Astro.site is set for the GitHub Pages demo; otherwise use the production domain.
+const origin = Astro.site ?? site.url;
+const canonical = new URL(Astro.url.pathname, origin).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: site.business,
+  description: site.description,
+  url: site.url,
+  email: site.contact.email,
+  founder: { '@type': 'Person', name: site.principal },
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: site.location.state,
+    addressCountry: 'US',
+  },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: `${site.location.county}, ${site.location.stateLong}`,
+  },
+};
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const { plausibleDomain } = site.analytics;
+
+const ogImage = about.photo
+  ? new URL((await getImage({ src: about.photo, width: 1200, format: 'jpg' })).src, origin).href
+  : null;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
+    {isDemo && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#14233a" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    {Astro.url.pathname === '/' && <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />}
+    {
+      plausibleDomain && (
+        <>
+          <script is:inline defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js" />
+          <script is:inline>
+            window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };
+          </script>
+        </>
+      )
+    }
+  </head>
+  <body class="min-h-screen bg-paper text-ink">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-3 focus:py-2 focus:text-paper"
+      >Skip to content</a
+    >
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      import '../scripts/analytics';
+    </script>
+  </body>
+</html>

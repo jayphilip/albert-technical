@@ -1,0 +1,174 @@
+---
+import { call, site } from '../data/site';
+
+const calendlySrc = call.calendlyUrl
+  ? `${call.calendlyUrl}${call.calendlyUrl.includes('?') ? '&' : '?'}hide_gdpr_banner=1&primary_color=c2410c`
+  : null;
+
+const field =
+  'mt-1.5 w-full rounded-sm border border-cream/25 bg-night px-3.5 py-3 text-cream placeholder:text-cream/35 focus:border-accent-light focus:outline-none';
+---
+
+<section id="book" class="bg-night text-cream">
+  <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-x-8">
+      <div class="lg:col-span-5">
+        <p class="label text-accent-light">Get in touch</p>
+        <h2 class="mt-4 font-serif text-[2.4rem] leading-[1.08] tracking-[-0.015em] text-balance sm:text-[3rem]">
+          Tell me what’s not working. <em class="text-accent-light">The first check-up is free.</em>
+        </h2>
+        <p class="mt-6 max-w-md leading-relaxed text-cream/75">
+          Twenty minutes by phone or video is usually enough to know what needs fixing and roughly what it will cost, whether or not
+          you hire me.
+        </p>
+        <p class="mt-6 text-sm text-cream/60">
+          Or email{' '}
+          <a
+            href={`mailto:${site.contact.email}`}
+            data-track="email_click"
+            data-location="book"
+            class="text-cream underline decoration-cream/30 underline-offset-4 hover:decoration-accent-light"
+          >
+            {site.contact.email}
+          </a>
+        </p>
+      </div>
+
+      <div class="lg:col-span-7">
+        {
+          calendlySrc ? (
+            <div class="overflow-hidden rounded-sm bg-white">
+              <div class="calendly-inline-widget" data-url={calendlySrc} style="min-width:300px;height:680px;" />
+              <p class="border-t border-ink/10 px-5 py-3 text-sm text-ink">
+                Calendar not loading?{' '}
+                <a
+                  href={call.calendlyUrl}
+                  target="_blank"
+                  rel="noopener"
+                  data-track="calendly_direct_click"
+                  data-location="book"
+                  class="text-accent underline underline-offset-4"
+                >
+                  Open the booking page
+                </a>
+              </p>
+            </div>
+          ) : (
+            <form
+              id="checkup-form"
+              data-endpoint={site.form.endpoint ?? ''}
+              data-email={site.contact.email}
+              class="rounded-sm bg-night-2 p-6 sm:p-9"
+            >
+              <div class="grid gap-5 sm:grid-cols-2">
+                <label class="block text-sm font-semibold">
+                  Your name
+                  <input name="name" required autocomplete="name" class={field} />
+                </label>
+                <label class="block text-sm font-semibold">
+                  Organization
+                  <input name="organization" autocomplete="organization" class={field} />
+                </label>
+                <label class="block text-sm font-semibold">
+                  Email
+                  <input name="email" type="email" required autocomplete="email" class={field} />
+                </label>
+                <label class="block text-sm font-semibold">
+                  Phone <span class="font-normal text-cream/50">(optional, for a call back)</span>
+                  <input name="phone" type="tel" autocomplete="tel" class={field} />
+                </label>
+                <label class="block text-sm font-semibold sm:col-span-2">
+                  {call.questions[0]}
+                  <textarea
+                    name="message"
+                    required
+                    rows="4"
+                    placeholder="e.g. Our office computers are slow and the Wi-Fi keeps dropping."
+                    class={field}
+                  />
+                </label>
+                <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+              </div>
+              <button
+                type="submit"
+                class="mt-7 inline-flex items-center gap-3 rounded-sm bg-cta px-6 py-3.5 text-[1.05rem] font-semibold text-on-cta transition-colors hover:bg-cta-hover disabled:opacity-60"
+              >
+                Request my free check-up <span aria-hidden="true">→</span>
+              </button>
+              <p class="mt-4 text-sm text-cream/55" data-status role="status">
+                Eric replies within one business day.
+              </p>
+            </form>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Request form: posts to the configured backend, or opens a pre-filled email when none is set.
+  const form = document.querySelector<HTMLFormElement>('#checkup-form');
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]')!;
+    const report = (event: string) => document.dispatchEvent(new CustomEvent('track', { detail: { event } }));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      if (data.get('_gotcha')) return;
+
+      const endpoint = form.dataset.endpoint;
+      if (!endpoint) {
+        const lines = [
+          `Name: ${data.get('name')}`,
+          `Organization: ${data.get('organization') || '-'}`,
+          `Email: ${data.get('email')}`,
+          `Phone: ${data.get('phone') || '-'}`,
+          '',
+          String(data.get('message')),
+        ];
+        report('checkup_request_email');
+        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Free check-up request')}&body=${encodeURIComponent(lines.join('\n'))}`;
+        return;
+      }
+
+      button.disabled = true;
+      status.textContent = 'Sending…';
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
+        if (!res.ok) throw new Error(String(res.status));
+        report('checkup_request_sent');
+        form.reset();
+        status.textContent = 'Thanks. Eric will be in touch within one business day.';
+      } catch {
+        status.textContent = `That didn’t go through. Please email ${form.dataset.email} instead.`;
+        button.disabled = false;
+      }
+    });
+  }
+
+  // Calendly: load only when the booking section approaches the viewport, forwarding UTM parameters.
+  const widget = document.querySelector<HTMLElement>('.calendly-inline-widget');
+  if (widget) {
+    const url = new URL(widget.dataset.url!);
+    for (const [key, value] of new URLSearchParams(location.search)) {
+      if (key.startsWith('utm_')) url.searchParams.set(key, value);
+    }
+    widget.dataset.url = url.toString();
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        const s = document.createElement('script');
+        s.src = 'https://assets.calendly.com/assets/external/widget.js';
+        s.async = true;
+        document.head.append(s);
+      },
+      { rootMargin: '800px' },
+    );
+    io.observe(widget);
+  }
+</script>

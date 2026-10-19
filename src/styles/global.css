@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f7f8fa;
+  --color-paper-2: #edf1f6;
+  --color-ink: #152133;
+  --color-muted: #586375;
+  --color-rule: #d5dce6;
+  --color-accent: #1d4f91;
+  --color-accent-dark: #163d72;
+  --color-night: #14233a;
+  --color-night-2: #1c2f4a;
+  --color-cream: #eef3f9;
+  --color-accent-light: #9ec3f5;
+
+  /* The call-to-action colour, used only on booking buttons so it stands out from everything else.
+     cta/on-cta sit on dark sections; cta-deep (white label) sits on light ones. */
+  --color-cta: #f97316;
+  --color-cta-hover: #fb8a3c;
+  --color-on-cta: #1a1206;
+  --color-cta-deep: #c2410c;
+  --color-cta-deep-hover: #9a3412;
+
+  --font-serif: "Newsreader Variable", ui-serif, Georgia, serif;
+  --font-sans: "Source Sans 3 Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    scroll-padding-top: 1.5rem;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      font-size: 18px;
+    }
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+/* Small uppercase running label, used in the left margin of each section. */
+@utility label {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
