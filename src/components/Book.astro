@@ -26,7 +26,7 @@ const field =
         <p class="mt-6 max-w-md leading-relaxed text-cream/75">
           {page.book.lede}
         </p>
-        <p class="mt-6 text-sm text-cream/60">
+        <p class="mt-6 text-sm text-cream/75">
           Or email{' '}
           <a
             href={`mailto:${site.contact.email}`}
@@ -80,7 +80,7 @@ const field =
                   <input name="email" type="email" required autocomplete="email" class={field} />
                 </label>
                 <label class="block text-sm font-semibold">
-                  Phone <span class="font-normal text-cream/50">(optional, for a call back)</span>
+                  Phone <span class="font-normal text-cream/75">(optional, for a call back)</span>
                   <input name="phone" type="tel" autocomplete="tel" class={field} />
                 </label>
                 <label class="block text-sm font-semibold sm:col-span-2">
@@ -102,7 +102,7 @@ const field =
               >
                 {`Request my ${page.cta.replace(/^(Book|Get) a /, '')}`} <span aria-hidden="true">→</span>
               </button>
-              <p class="mt-4 text-sm text-cream/55" data-status role="status">
+              <p class="mt-4 text-sm text-cream/75" data-status role="status">
                 Eric replies within one business day.
               </p>
             </form>

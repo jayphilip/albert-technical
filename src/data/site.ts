@@ -82,6 +82,8 @@ export const site = {
     state: 'PA',
     stateLong: 'Pennsylvania',
     region: 'North Central Pennsylvania',
+    /** Towns named for local search. All are in Lycoming County. */
+    towns: ['Williamsport', 'South Williamsport', 'Montoursville', 'Muncy', 'Hughesville', 'Jersey Shore'],
   },
   contact: {
     email: 'erickphd@aol.com',
@@ -112,12 +114,12 @@ export const call = {
 export const nonprofitPage: Page = {
   path: '',
   audience: 'Nonprofits',
-  seoTitle: 'Nonprofit Technology Help & IT Support in Lycoming County, PA',
+  seoTitle: 'Nonprofit IT Help in Williamsport, PA | Albert Technical',
   description:
-    'Technology help for Lycoming County nonprofits: computer upgrades, Wi-Fi and networks, backups and security, practical AI, and help finding the discounts and grants that pay for it. Book a free 20-minute check-up with Eric Albert.',
+    'Computer upgrades, Wi-Fi, backups, and practical AI for nonprofits in Williamsport and Lycoming County, PA. Free 20-minute check-up with Eric Albert, PhD.',
   cta: 'Get a free check-up',
   hero: {
-    kicker: 'Technology help for nonprofits · Lycoming County, PA',
+    kicker: 'Nonprofit IT help · Lycoming County, PA',
     headline: ['Nonprofit tech', 'that just works,', 'on a nonprofit budget.'],
     lede: 'Computers, Wi-Fi, backups, and email, set up properly by someone local who explains things in plain English. I can also help you find the discounts and grants that pay for it.',
     reassurance: 'Free 20-minute check-up · Written quote before any work',
@@ -178,8 +180,8 @@ export const nonprofitPage: Page = {
       a: 'I’m one local person, not a 24/7 call center. Support clients get priority during business hours, and I set things up so emergencies are rare.',
     },
     {
-      q: 'Do you work outside Lycoming County?',
-      a: 'Yes, across North Central Pennsylvania, and remotely for many problems.',
+      q: 'Where do you work?',
+      a: 'Throughout Lycoming County, including Williamsport, South Williamsport, Montoursville, Muncy, Hughesville, and Jersey Shore, plus the rest of North Central Pennsylvania. Many problems can also be handled remotely.',
     },
   ],
   book: {
@@ -193,9 +195,9 @@ export const nonprofitPage: Page = {
 export const businessPage: Page = {
   path: 'business/',
   audience: 'Businesses',
-  seoTitle: 'Automation, Robotics & AI Help for Lycoming County Manufacturers and Businesses',
+  seoTitle: 'Automation & AI for Manufacturers in Williamsport, PA',
   description:
-    'Automation, robotics, and practical AI for manufacturers and small businesses in Lycoming County, PA: assessments, small builds, shop-floor data, and staff training. Book a free assessment with Eric Albert.',
+    'Automation, robotics, and practical AI for manufacturers and small businesses in Williamsport and Lycoming County, PA. Free assessment with Eric Albert.',
   cta: 'Get a free assessment',
   hero: {
     kicker: 'Automation & AI for businesses and manufacturers · Lycoming County, PA',
@@ -268,6 +270,10 @@ export const businessPage: Page = {
     {
       q: 'What does it cost?',
       a: 'The first call is free. Every project gets a written, fixed quote before any work starts.',
+    },
+    {
+      q: 'Where do you work?',
+      a: 'With manufacturers and businesses throughout Lycoming County, including Williamsport, Montoursville, Muncy, Hughesville, and Jersey Shore, and across North Central Pennsylvania.',
     },
   ],
   book: {

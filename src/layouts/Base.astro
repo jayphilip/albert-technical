@@ -15,31 +15,13 @@ interface Props {
 }
 
 const { page = nonprofitPage } = Astro.props;
-const title = Astro.props.title ?? `${page.seoTitle} | ${site.business}`;
+const title = Astro.props.title ?? page.seoTitle;
 const description = page.description;
 
 // Astro.site is set for the GitHub Pages demo; otherwise use the production domain.
 const origin = Astro.site ?? site.url;
 const canonical = new URL(Astro.url.pathname, origin).href;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  name: site.business,
-  description,
-  url: site.url,
-  email: site.contact.email,
-  founder: { '@type': 'Person', name: site.principal },
-  address: {
-    '@type': 'PostalAddress',
-    addressRegion: site.location.state,
-    addressCountry: 'US',
-  },
-  areaServed: {
-    '@type': 'AdministrativeArea',
-    name: `${site.location.county}, ${site.location.stateLong}`,
-  },
-};
 
 const faqLd = {
   '@context': 'https://schema.org',
@@ -56,6 +38,42 @@ const { plausibleDomain } = site.analytics;
 const ogImage = about.photo
   ? new URL((await getImage({ src: about.photo, width: 1200, format: 'jpg' })).src, origin).href
   : null;
+
+// Business details for search engines: who, where, and what this page offers.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': `${site.url}/#business`,
+  name: site.business,
+  description,
+  url: site.url,
+  email: site.contact.email,
+  ...(ogImage && { image: ogImage }),
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: site.location.state,
+    addressCountry: 'US',
+  },
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: `${site.location.county}, ${site.location.stateLong}` },
+    ...site.location.towns.map((town) => ({ '@type': 'City', name: `${town}, ${site.location.state}` })),
+  ],
+  founder: {
+    '@type': 'Person',
+    name: site.principal,
+    jobTitle: 'Professor Emeritus, Pennsylvania College of Technology',
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'Pennsylvania State University' },
+    ...(ogImage && { image: ogImage }),
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: `Services for ${page.audience.toLowerCase()}`,
+    itemListElement: page.services.map((s) => ({
+      '@type': 'Offer',
+      itemOffered: { '@type': 'Service', name: s.title, description: s.line },
+    })),
+  },
+};
 ---
 
 <!doctype html>
@@ -67,9 +85,13 @@ const ogImage = about.photo
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
+    <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
+    <link rel="sitemap" href={asset('sitemap-index.xml')} />
     {isDemo && <meta name="robots" content="noindex" />}
     <meta name="theme-color" content="#14233a" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.business} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
