@@ -106,6 +106,8 @@ export const call = {
 };
 
 // PLACEHOLDER (both pages): confirm the free first call, written quotes, and rates with Eric.
+// PLACEHOLDER (added from persona review): confirm the password/continuity answers (nonprofit),
+// and 'no equipment sales or commissions', safety review, and scheduling-around-production (business).
 
 export const nonprofitPage: Page = {
   path: '',
@@ -113,7 +115,7 @@ export const nonprofitPage: Page = {
   seoTitle: 'Nonprofit Technology Help & IT Support in Lycoming County, PA',
   description:
     'Technology help for Lycoming County nonprofits: computer upgrades, Wi-Fi and networks, backups and security, practical AI, and help finding the discounts and grants that pay for it. Book a free 20-minute check-up with Eric Albert.',
-  cta: 'Book a free check-up',
+  cta: 'Get a free check-up',
   hero: {
     kicker: 'Technology help for nonprofits · Lycoming County, PA',
     headline: ['Nonprofit tech', 'that just works,', 'on a nonprofit budget.'],
@@ -137,7 +139,7 @@ export const nonprofitPage: Page = {
     },
     {
       title: 'Tech discounts & grants',
-      line: 'TechSoup and other nonprofit discounts, plus help writing a small grant. Eric has won over $950,000 in federal grants.',
+      line: 'Donated and discounted software and hardware through TechSoup, a program that serves charities, plus help writing a small grant. Eric has won over $950,000 in federal grants.',
     },
     { title: 'Ongoing support', line: 'Optional monthly help from someone who already knows your setup.' },
   ],
@@ -164,6 +166,14 @@ export const nonprofitPage: Page = {
       a: 'Nonprofits and churches are my focus. I also help local businesses and manufacturers with automation and AI; see the page for businesses.',
     },
     {
+      q: 'Will you need our passwords?',
+      a: 'You stay in control. Where I can, I use my own login; otherwise you type passwords in yourself. I’ll also help you set up a password manager that your organization owns.',
+    },
+    {
+      q: 'What if you’re not available someday?',
+      a: 'Everything I set up gets written down in plain English and stays with you, so anyone you bring in later can pick up where I left off.',
+    },
+    {
       q: 'What if something breaks after hours?',
       a: 'I’m one local person, not a 24/7 call center. Support clients get priority during business hours, and I set things up so emergencies are rare.',
     },
@@ -186,16 +196,16 @@ export const businessPage: Page = {
   seoTitle: 'Automation, Robotics & AI Help for Lycoming County Manufacturers and Businesses',
   description:
     'Automation, robotics, and practical AI for manufacturers and small businesses in Lycoming County, PA: assessments, small builds, shop-floor data, and staff training. Book a free assessment with Eric Albert.',
-  cta: 'Book a free assessment',
+  cta: 'Get a free assessment',
   hero: {
     kicker: 'Automation & AI for businesses and manufacturers · Lycoming County, PA',
     headline: ['Find the work', 'a robot or AI', 'should be doing.'],
-    lede: 'I help local manufacturers and small businesses find where automation and AI will actually pay off, then set up the smaller projects and train your people.',
+    lede: 'Short on people for the repetitive jobs? I help local manufacturers and small businesses find where automation and AI will actually pay off, then set up the smaller projects and train your team.',
     reassurance: 'Free 20-minute assessment call · Written quote before any work',
     trust: [
-      'Taught manufacturing, automation, and robotics at Penn College for nearly 30 years',
       'Has built and installed automation systems',
-      'Former dean, School of Industrial & Engineering Technology',
+      'Independent: no equipment sales or commissions',
+      'Taught manufacturing, automation, and robotics at Penn College for nearly 30 years',
     ],
   },
   servicesTitle: 'Where I can <em class=\'text-accent\'>help your shop.</em>',
@@ -217,6 +227,10 @@ export const businessPage: Page = {
       line: 'Microsoft Copilot or ChatGPT set up for quotes, documents, and email, with a clear policy so company data stays private.',
     },
     {
+      title: 'Process & layout fixes',
+      line: 'Cheaper fixes first. A better fixture, layout, or workflow often beats a robot, and I’ll tell you when it does.',
+    },
+    {
       title: 'Staff training',
       line: 'Hands-on training so your team can run, maintain, and get the most from new equipment and software.',
     },
@@ -225,11 +239,11 @@ export const businessPage: Page = {
   steps: [
     { name: 'Free assessment call', detail: 'Tell me about the job or process. We talk for 20 minutes by phone or video.' },
     { name: 'Site visit & plan', detail: 'I walk your floor or office and give you a written plan with priorities, costs, and a fixed quote.' },
-    { name: 'Build & train', detail: 'I set up the smaller projects and train your team. Larger systems go to a trusted integrator, with me on your side.' },
+    { name: 'Build & train', detail: 'Smaller projects are set up around your production schedule, and your team is trained. Larger systems go to a trusted integrator, with me on your side.' },
   ],
   stepsNote: 'Ongoing support is available once your systems are running.',
-  aboutTitle: 'I taught automation for nearly thirty years.',
-  bio: 'Eric Albert studied computer science at Penn State, earned a PhD there, and spent nearly thirty years at Pennsylvania College of Technology teaching manufacturing, automation, robotics, and electronics, including as head of Manufacturing Engineering Technology and dean of the School of Industrial & Engineering Technology. He has built and installed automation systems, uses AI tools daily, and now helps local businesses and manufacturers put both to work.',
+  aboutTitle: 'I’ve built it, and I taught it for thirty years.',
+  bio: 'Eric Albert has built and installed automation systems and uses AI tools every day. He spent nearly thirty years at Pennsylvania College of Technology teaching manufacturing, automation, robotics, and electronics, including as head of Manufacturing Engineering Technology and dean of the School of Industrial & Engineering Technology, after studying computer science and earning a PhD at Penn State. He doesn’t sell equipment, so his advice is about what fits your shop.',
   faqs: [
     {
       q: 'We’re a small shop. Is automation realistic for us?',
@@ -238,6 +252,14 @@ export const businessPage: Page = {
     {
       q: 'Do you install the equipment yourself?',
       a: 'For smaller projects, yes. For larger automation cells I plan the project and work alongside an integrator, so you get independent advice without paying for a big firm’s design work.',
+    },
+    {
+      q: 'Are you tied to an equipment vendor?',
+      a: 'No. I don’t sell equipment or take commissions, so my recommendation is whatever fits your shop, including not automating at all.',
+    },
+    {
+      q: 'Will this disrupt production? Who handles safety?',
+      a: 'Work is scheduled around your production. Every robot or automation project starts with a safety review, and I’ll tell you plainly when a job needs guarding or a certified integrator.',
     },
     {
       q: 'Is AI safe to use with our company data?',
