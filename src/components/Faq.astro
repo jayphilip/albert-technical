@@ -1,6 +1,12 @@
 ---
 import SectionHead from './SectionHead.astro';
-import { faqs } from '../data/site';
+import type { Page } from '../data/site';
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
 ---
 
 <section id="faq" class="border-t border-rule bg-paper-2">
@@ -10,7 +16,7 @@ import { faqs } from '../data/site';
     <div class="md:grid md:grid-cols-12 md:gap-x-8">
       <div class="border-t border-ink md:col-span-9 md:col-start-4">
         {
-          faqs.map((f) => (
+          page.faqs.map((f) => (
             <details class="group border-b border-rule">
               <summary class="flex cursor-pointer list-none items-baseline justify-between gap-6 py-5">
                 <span class="font-serif text-[1.3rem] leading-snug group-hover:text-accent">{f.q}</span>

@@ -1,13 +1,12 @@
 ---
-import { call } from '../data/site';
-
 interface Props {
+  label: string;
   /** Where on the page the button sits; sent with the click event so placements can be compared. */
   location: string;
   tone?: 'light' | 'accent';
 }
 
-const { location, tone = 'accent' } = Astro.props;
+const { label, location, tone = 'accent' } = Astro.props;
 
 const tones = {
   accent: 'bg-cta-deep text-white hover:bg-cta-deep-hover',
@@ -24,6 +23,6 @@ const tones = {
     tones[tone],
   ]}
 >
-  {call.cta}
+  {label}
   <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
 </a>

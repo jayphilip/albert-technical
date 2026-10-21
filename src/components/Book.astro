@@ -1,5 +1,11 @@
 ---
-import { call, site } from '../data/site';
+import { call, site, type Page } from '../data/site';
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
 
 const calendlySrc = call.calendlyUrl
   ? `${call.calendlyUrl}${call.calendlyUrl.includes('?') ? '&' : '?'}hide_gdpr_banner=1&primary_color=c2410c`
@@ -15,11 +21,10 @@ const field =
       <div class="lg:col-span-5">
         <p class="label text-accent-light">Get in touch</p>
         <h2 class="mt-4 font-serif text-[2.4rem] leading-[1.08] tracking-[-0.015em] text-balance sm:text-[3rem]">
-          Tell me what’s not working. <em class="text-accent-light">The first check-up is free.</em>
+          {page.book.title} <em class="text-accent-light">{page.book.titleEm}</em>
         </h2>
         <p class="mt-6 max-w-md leading-relaxed text-cream/75">
-          Twenty minutes by phone or video is usually enough to know what needs fixing and roughly what it will cost, whether or not
-          you hire me.
+          {page.book.lede}
         </p>
         <p class="mt-6 text-sm text-cream/60">
           Or email{' '}
@@ -58,6 +63,7 @@ const field =
               id="checkup-form"
               data-endpoint={site.form.endpoint ?? ''}
               data-email={site.contact.email}
+              data-audience={page.audience}
               class="rounded-sm bg-night-2 p-6 sm:p-9"
             >
               <div class="grid gap-5 sm:grid-cols-2">
@@ -83,17 +89,18 @@ const field =
                     name="message"
                     required
                     rows="4"
-                    placeholder="e.g. Our office computers are slow and the Wi-Fi keeps dropping."
+                    placeholder={page.book.placeholder}
                     class={field}
                   />
                 </label>
+                <input type="hidden" name="audience" value={page.audience} />
                 <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
               </div>
               <button
                 type="submit"
                 class="mt-7 inline-flex items-center gap-3 rounded-sm bg-cta px-6 py-3.5 text-[1.05rem] font-semibold text-on-cta transition-colors hover:bg-cta-hover disabled:opacity-60"
               >
-                Request my free check-up <span aria-hidden="true">→</span>
+                {`Request my ${page.cta.replace(/^Book a /, '')}`} <span aria-hidden="true">→</span>
               </button>
               <p class="mt-4 text-sm text-cream/55" data-status role="status">
                 Eric replies within one business day.
@@ -122,6 +129,7 @@ const field =
       const endpoint = form.dataset.endpoint;
       if (!endpoint) {
         const lines = [
+          `Page: ${form.dataset.audience}`,
           `Name: ${data.get('name')}`,
           `Organization: ${data.get('organization') || '-'}`,
           `Email: ${data.get('email')}`,
@@ -130,7 +138,7 @@ const field =
           String(data.get('message')),
         ];
         report('checkup_request_email');
-        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent('Free check-up request')}&body=${encodeURIComponent(lines.join('\n'))}`;
+        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(`Free consultation request (${form.dataset.audience})`)}&body=${encodeURIComponent(lines.join('\n'))}`;
         return;
       }
 

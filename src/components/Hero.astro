@@ -1,8 +1,14 @@
 ---
 import { Image } from 'astro:assets';
 import CtaButton from './CtaButton.astro';
-import { about, hero, site } from '../data/site';
+import { about, site, type Page } from '../data/site';
 
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const { hero } = page;
 const [h1, h2, h3] = hero.headline;
 ---
 
@@ -18,7 +24,7 @@ const [h1, h2, h3] = hero.headline;
       <p class="mt-7 max-w-[32rem] text-[1.15rem] leading-relaxed text-cream/80">{hero.lede}</p>
 
       <div class="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-6">
-        <CtaButton location="hero" tone="light" />
+        <CtaButton label={page.cta} location="hero" tone="light" />
         <a
           href={`mailto:${site.contact.email}`}
           data-track="email_click"

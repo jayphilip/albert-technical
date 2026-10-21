@@ -8,15 +8,16 @@ import About from '../components/About.astro';
 import Faq from '../components/Faq.astro';
 import Book from '../components/Book.astro';
 import MobileCta from '../components/MobileCta.astro';
+import { nonprofitPage as page } from '../data/site';
 ---
 
-<Base>
-  <Hero />
-  <Services />
-  <Process />
+<Base page={page}>
+  <Hero page={page} />
+  <Services page={page} />
+  <Process page={page} />
   <Work />
-  <About />
-  <Faq />
-  <Book />
-  <MobileCta />
+  <About page={page} />
+  <Faq page={page} />
+  <Book page={page} />
+  <MobileCta page={page} />
 </Base>

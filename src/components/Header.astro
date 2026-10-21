@@ -1,12 +1,20 @@
 ---
 import { home } from '../lib/paths';
-import { call } from '../data/site';
+import { businessPage, nonprofitPage, type Page } from '../data/site';
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
+const here = `${home}${page.path}`;
+const other = page === businessPage ? nonprofitPage : businessPage;
 
 const links = [
-  { href: `${home}#services`, label: 'Services' },
-  { href: `${home}#how`, label: 'How it works' },
-  { href: `${home}#about`, label: 'About' },
-  { href: `${home}#faq`, label: 'FAQ' },
+  { href: `${here}#services`, label: 'Services' },
+  { href: `${here}#how`, label: 'How it works' },
+  { href: `${here}#about`, label: 'About' },
+  { href: `${here}#faq`, label: 'FAQ' },
 ];
 ---
 
@@ -15,7 +23,7 @@ const links = [
     <a href={home} class="font-serif text-[1.2rem] leading-tight font-medium tracking-[-0.01em] sm:text-[1.4rem]">
       Albert <span class="text-accent-light italic">Technical</span> Consulting
     </a>
-    <nav aria-label="Primary" class="flex items-center gap-8">
+    <nav aria-label="Primary" class="flex items-center gap-6 lg:gap-8">
       <ul class="hidden gap-7 text-[0.95rem] lg:flex">
         {
           links.map((l) => (
@@ -28,12 +36,20 @@ const links = [
         }
       </ul>
       <a
-        href={`${home}#book`}
+        href={`${home}${other.path}`}
+        data-track="audience_switch"
+        data-location="header"
+        class="text-[0.95rem] whitespace-nowrap text-cream underline decoration-cream/30 underline-offset-4 hover:decoration-cream"
+      >
+        For {other.audience.toLowerCase()}
+      </a>
+      <a
+        href={`${here}#book`}
         data-track="book_click"
         data-location="header"
         class="hidden rounded-sm bg-cta px-4 py-2 text-sm font-semibold whitespace-nowrap text-on-cta transition-colors hover:bg-cta-hover sm:inline-block"
       >
-        {call.cta}
+        {page.cta}
       </a>
     </nav>
   </div>

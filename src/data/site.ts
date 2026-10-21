@@ -46,10 +46,34 @@ export interface Faq {
   a: string;
 }
 
+/** Everything that differs between the nonprofit home page and the business page. */
+export interface Page {
+  path: string;
+  /** Short audience name, used in nav links and to tag form requests. */
+  audience: string;
+  seoTitle: string;
+  description: string;
+  cta: string;
+  hero: {
+    kicker: string;
+    headline: [string, string, string];
+    lede: string;
+    reassurance: string;
+    trust: string[];
+  };
+  servicesTitle: string;
+  services: Service[];
+  stepsTitle: string;
+  steps: Step[];
+  stepsNote: string;
+  aboutTitle: string;
+  bio: string;
+  faqs: Faq[];
+  book: { title: string; titleEm: string; lede: string; placeholder: string };
+}
+
 export const site = {
   business: 'Albert Technical Consulting',
-  /** Used in page titles for local search. */
-  seoTagline: 'Nonprofit Technology Help & IT Support in Lycoming County, PA',
   principal: 'Eric K. Albert, PhD',
   firstName: 'Eric',
   url: 'https://alberttechnical.com', // PLACEHOLDER: confirm domain
@@ -71,51 +95,166 @@ export const site = {
     /** Plausible site domain, e.g. 'alberttechnical.com'. null disables the script. */
     plausibleDomain: null as string | null, // PLACEHOLDER
   },
-  description:
-    'Technology help for Lycoming County nonprofits: computer upgrades, Wi-Fi and networks, backups and security, and help finding the discounts and grants that pay for it. Book a free 20-minute check-up with Eric Albert.',
 };
 
-/** The free first call: the one action the page asks for. */
+/** Shared booking settings for both pages. */
 export const call = {
-  name: 'free 20-minute check-up',
-  cta: 'Book a free check-up',
-  /** e.g. 'https://calendly.com/eric-albert/check-up'. null shows the email fallback instead. */
+  /** e.g. 'https://calendly.com/eric-albert/check-up'. null shows the request form instead. */
   calendlyUrl: null as string | null, // PLACEHOLDER
   /** Set these up as invitee questions in Calendly so they arrive with each booking. */
   questions: ['What do you need help with?', 'What would a successful outcome look like?'],
 };
 
-export const hero = {
-  kicker: 'Technology help for nonprofits · Lycoming County, PA',
-  headline: ['Nonprofit tech', 'that just works,', 'on a nonprofit budget.'],
-  lede: 'Computers, Wi-Fi, backups, and email, set up properly by someone local who explains things in plain English. I can also help you find the discounts and grants that pay for it.',
-  /** PLACEHOLDER: confirm with Eric. */
-  reassurance: 'Free 20-minute check-up · Written quote before any work',
-  trust: [
-    'Based in Lycoming County, with on-site visits',
-    'Taught electronics and computer science at Penn College for nearly 30 years',
-    'BS in Computer Science, Penn State',
+// PLACEHOLDER (both pages): confirm the free first call, written quotes, and rates with Eric.
+
+export const nonprofitPage: Page = {
+  path: '',
+  audience: 'Nonprofits',
+  seoTitle: 'Nonprofit Technology Help & IT Support in Lycoming County, PA',
+  description:
+    'Technology help for Lycoming County nonprofits: computer upgrades, Wi-Fi and networks, backups and security, practical AI, and help finding the discounts and grants that pay for it. Book a free 20-minute check-up with Eric Albert.',
+  cta: 'Book a free check-up',
+  hero: {
+    kicker: 'Technology help for nonprofits · Lycoming County, PA',
+    headline: ['Nonprofit tech', 'that just works,', 'on a nonprofit budget.'],
+    lede: 'Computers, Wi-Fi, backups, and email, set up properly by someone local who explains things in plain English. I can also help you find the discounts and grants that pay for it.',
+    reassurance: 'Free 20-minute check-up · Written quote before any work',
+    trust: [
+      'Based in Lycoming County, with on-site visits',
+      'Taught electronics and computer science at Penn College for nearly 30 years',
+      'BS in Computer Science, Penn State',
+    ],
+  },
+  servicesTitle: 'What I can <em class=\'text-accent\'>fix for you.</em>',
+  services: [
+    { title: 'Computer upgrades', line: 'What to fix, upgrade, or replace, then setup and moving your files over.' },
+    { title: 'Wi-Fi & networks', line: 'Reliable Wi-Fi for offices, churches, and community buildings.' },
+    { title: 'Backups & security', line: 'Automatic backups, safer passwords, and protection from common scams.' },
+    { title: 'Email & accounts', line: 'One organized setup for email and shared files, often free for nonprofits.' },
+    {
+      title: 'Practical AI help',
+      line: 'Setting up tools like Microsoft Copilot or ChatGPT for letters, grant drafts, and reports, with simple rules for using them safely.',
+    },
+    {
+      title: 'Tech discounts & grants',
+      line: 'TechSoup and other nonprofit discounts, plus help writing a small grant. Eric has won over $950,000 in federal grants.',
+    },
+    { title: 'Ongoing support', line: 'Optional monthly help from someone who already knows your setup.' },
   ],
+  stepsTitle: 'Three steps, <em class=\'text-accent\'>starting with a free call.</em>',
+  steps: [
+    { name: 'Free check-up', detail: 'Send a short note or book a time. We talk for 20 minutes by phone or video.' },
+    { name: 'Visit & quote', detail: 'I look at your setup and give you a written, fixed price.' },
+    { name: 'Fix', detail: 'Work scheduled around your hours, with simple notes when it’s done.' },
+  ],
+  stepsNote: 'Optional monthly support afterward, if you want someone to call.',
+  aboutTitle: 'I spent nearly thirty years teaching technology.',
+  bio: 'Eric Albert studied computer science at Penn State, earned a PhD there, and spent nearly thirty years teaching electronics, computer science, and manufacturing at Pennsylvania College of Technology, where he also served as department head and dean. Now Professor Emeritus, he helps local nonprofits get their technology working, and uses the grant-writing experience behind more than $950,000 in National Science Foundation awards to help them pay for it.',
+  faqs: [
+    {
+      q: 'What does it cost?',
+      a: 'The 20-minute check-up is free. After that, projects get a written, fixed quote before any work starts, and nonprofits get a reduced rate. Monthly support is optional.',
+    },
+    {
+      q: 'Can you help us pay for new equipment?',
+      a: 'Often, yes. Many nonprofits qualify for donated or discounted software and hardware through TechSoup, Microsoft, and Google. I can check, handle the applications, and help write a small grant for the rest.',
+    },
+    {
+      q: 'Do you only work with nonprofits?',
+      a: 'Nonprofits and churches are my focus. I also help local businesses and manufacturers with automation and AI; see the page for businesses.',
+    },
+    {
+      q: 'What if something breaks after hours?',
+      a: 'I’m one local person, not a 24/7 call center. Support clients get priority during business hours, and I set things up so emergencies are rare.',
+    },
+    {
+      q: 'Do you work outside Lycoming County?',
+      a: 'Yes, across North Central Pennsylvania, and remotely for many problems.',
+    },
+  ],
+  book: {
+    title: 'Tell me what’s not working.',
+    titleEm: 'The first check-up is free.',
+    lede: 'Twenty minutes by phone or video is usually enough to know what needs fixing and roughly what it will cost, whether or not you hire me.',
+    placeholder: 'e.g. Our office computers are slow and the Wi-Fi keeps dropping.',
+  },
 };
 
-export const services: Service[] = [
-  { title: 'Computer upgrades', line: 'What to fix, upgrade, or replace, then setup and moving your files over.' },
-  { title: 'Wi-Fi & networks', line: 'Reliable Wi-Fi for offices, churches, and community buildings.' },
-  { title: 'Backups & security', line: 'Automatic backups, safer passwords, and protection from common scams.' },
-  { title: 'Email & accounts', line: 'One organized setup for email and shared files, often free for nonprofits.' },
-  {
-    title: 'Tech discounts & grants',
-    line: 'TechSoup and other nonprofit discounts, plus help writing a small grant. Eric has won over $950,000 in federal grants.',
+export const businessPage: Page = {
+  path: 'business/',
+  audience: 'Businesses',
+  seoTitle: 'Automation, Robotics & AI Help for Lycoming County Manufacturers and Businesses',
+  description:
+    'Automation, robotics, and practical AI for manufacturers and small businesses in Lycoming County, PA: assessments, small builds, shop-floor data, and staff training. Book a free assessment with Eric Albert.',
+  cta: 'Book a free assessment',
+  hero: {
+    kicker: 'Automation & AI for businesses and manufacturers · Lycoming County, PA',
+    headline: ['Find the work', 'a robot or AI', 'should be doing.'],
+    lede: 'I help local manufacturers and small businesses find where automation and AI will actually pay off, then set up the smaller projects and train your people.',
+    reassurance: 'Free 20-minute assessment call · Written quote before any work',
+    trust: [
+      'Taught manufacturing, automation, and robotics at Penn College for nearly 30 years',
+      'Has built and installed automation systems',
+      'Former dean, School of Industrial & Engineering Technology',
+    ],
   },
-  { title: 'Ongoing support', line: 'Optional monthly help from someone who already knows your setup.' },
-];
-
-// PLACEHOLDER: confirm the free check-up and written quotes.
-export const steps: Step[] = [
-  { name: 'Free check-up', detail: 'Send a short note or book a time. We talk for 20 minutes by phone or video.' },
-  { name: 'Visit & quote', detail: 'I look at your setup and give you a written, fixed price.' },
-  { name: 'Fix', detail: 'Work scheduled around your hours, with simple notes when it’s done.' },
-];
+  servicesTitle: 'Where I can <em class=\'text-accent\'>help your shop.</em>',
+  services: [
+    {
+      title: 'Automation assessment',
+      line: 'A walk-through of your operation to find the repetitive, error-prone, or unsafe jobs worth automating, with rough costs and payback.',
+    },
+    {
+      title: 'Robotics & cobots',
+      line: 'Choosing and setting up collaborative robots and simple automation for small runs, and working alongside an integrator on larger systems.',
+    },
+    {
+      title: 'Sensors & shop-floor data',
+      line: 'Simple sensors and dashboards so you can see machine uptime, counts, and problems without walking the floor.',
+    },
+    {
+      title: 'Practical AI for the office',
+      line: 'Microsoft Copilot or ChatGPT set up for quotes, documents, and email, with a clear policy so company data stays private.',
+    },
+    {
+      title: 'Staff training',
+      line: 'Hands-on training so your team can run, maintain, and get the most from new equipment and software.',
+    },
+  ],
+  stepsTitle: 'Three steps, <em class=\'text-accent\'>starting with a free assessment.</em>',
+  steps: [
+    { name: 'Free assessment call', detail: 'Tell me about the job or process. We talk for 20 minutes by phone or video.' },
+    { name: 'Site visit & plan', detail: 'I walk your floor or office and give you a written plan with priorities, costs, and a fixed quote.' },
+    { name: 'Build & train', detail: 'I set up the smaller projects and train your team. Larger systems go to a trusted integrator, with me on your side.' },
+  ],
+  stepsNote: 'Ongoing support is available once your systems are running.',
+  aboutTitle: 'I taught automation for nearly thirty years.',
+  bio: 'Eric Albert studied computer science at Penn State, earned a PhD there, and spent nearly thirty years at Pennsylvania College of Technology teaching manufacturing, automation, robotics, and electronics, including as head of Manufacturing Engineering Technology and dean of the School of Industrial & Engineering Technology. He has built and installed automation systems, uses AI tools daily, and now helps local businesses and manufacturers put both to work.',
+  faqs: [
+    {
+      q: 'We’re a small shop. Is automation realistic for us?',
+      a: 'Often, yes. Collaborative robots and simple sensors cost far less than they used to. The assessment tells you honestly whether automation makes sense now, later, or not at all.',
+    },
+    {
+      q: 'Do you install the equipment yourself?',
+      a: 'For smaller projects, yes. For larger automation cells I plan the project and work alongside an integrator, so you get independent advice without paying for a big firm’s design work.',
+    },
+    {
+      q: 'Is AI safe to use with our company data?',
+      a: 'It can be, with the right setup. I use business versions of these tools that keep your data out of their training, and I train staff on what not to share.',
+    },
+    {
+      q: 'What does it cost?',
+      a: 'The first call is free. Every project gets a written, fixed quote before any work starts.',
+    },
+  ],
+  book: {
+    title: 'Tell me about the job you’d like to automate.',
+    titleEm: 'The first call is free.',
+    lede: 'Twenty minutes is usually enough to know whether automation or AI makes sense for you, and roughly what it would take.',
+    placeholder: 'e.g. We hand-pack about 2,000 parts a day and want to know if a robot makes sense.',
+  },
+};
 
 // PLACEHOLDER: add 2–3 real stories from nonprofits Eric has helped. The section stays hidden until then.
 // Example shape: { organization: 'St. Mark’s Food Pantry', problem: '...', fix: '...', result: '...' }
@@ -126,7 +265,6 @@ export const testimonials: Testimonial[] = [];
 
 export const about = {
   photo: headshot as ImageMetadata | null,
-  bio: 'Eric Albert studied computer science at Penn State, earned a PhD there, and spent nearly thirty years teaching electronics, computer science, and manufacturing at Pennsylvania College of Technology, where he also served as department head and dean. Now Professor Emeritus, he helps local nonprofits get their technology working, and uses the grant-writing experience behind more than $950,000 in National Science Foundation awards to help them pay for it.',
   record: [
     {
       label: 'Education',
@@ -191,27 +329,3 @@ export const about = {
     },
   ] satisfies RecordGroup[],
 };
-
-// PLACEHOLDER: confirm each answer, especially rates and after-hours availability.
-export const faqs: Faq[] = [
-  {
-    q: 'What does it cost?',
-    a: 'The 20-minute check-up is free. After that, projects get a written, fixed quote before any work starts, and nonprofits get a reduced rate. Monthly support is optional.',
-  },
-  {
-    q: 'Can you help us pay for new equipment?',
-    a: 'Often, yes. Many nonprofits qualify for donated or discounted software and hardware through TechSoup, Microsoft, and Google. I can check, handle the applications, and help write a small grant for the rest.',
-  },
-  {
-    q: 'Do you only work with nonprofits?',
-    a: 'Nonprofits and churches are my focus, but I also help small offices and businesses with the same needs.',
-  },
-  {
-    q: 'What if something breaks after hours?',
-    a: 'I’m one local person, not a 24/7 call center. Support clients get priority during business hours, and I set things up so emergencies are rare.',
-  },
-  {
-    q: 'Do you work outside Lycoming County?',
-    a: 'Yes, across North Central Pennsylvania, and remotely for many problems.',
-  },
-];

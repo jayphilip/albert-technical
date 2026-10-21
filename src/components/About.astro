@@ -1,14 +1,20 @@
 ---
 import SectionHead from './SectionHead.astro';
-import { about, site } from '../data/site';
+import { about, site, type Page } from '../data/site';
+
+interface Props {
+  page: Page;
+}
+
+const { page } = Astro.props;
 ---
 
 <section id="about" class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-  <SectionHead label="About" title={`Hi, I’m ${site.firstName}. <em class='text-accent'>I spent nearly thirty years teaching technology.</em>`} />
+  <SectionHead label="About" title={`Hi, I’m ${site.firstName}. <em class='text-accent'>${page.aboutTitle}</em>`} />
 
   <div class="md:grid md:grid-cols-12 md:gap-x-8">
     <div class="md:col-span-9 md:col-start-4 lg:col-span-7 lg:col-start-4">
-      <p class="text-[1.12rem] leading-relaxed text-ink/85">{about.bio}</p>
+      <p class="text-[1.12rem] leading-relaxed text-ink/85">{page.bio}</p>
 
       <details class="group mt-10 border-t border-ink">
         <summary class="flex cursor-pointer list-none items-baseline justify-between py-4 hover:text-accent">
