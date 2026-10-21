@@ -66,8 +66,12 @@ export interface Page {
   stepsTitle: string;
   steps: Step[];
   stepsNote: string;
+  /** Short "by the numbers" strip under the hero. */
+  figures: { figure: string; label: string }[];
   aboutTitle: string;
   bio: string;
+  /** Strongest facts from the record, shown above the collapsible CV. */
+  highlights: string[];
   faqs: Faq[];
   book: { title: string; titleEm: string; lede: string; placeholder: string };
 }
@@ -110,6 +114,7 @@ export const call = {
 // PLACEHOLDER (both pages): confirm the free first call, written quotes, and rates with Eric.
 // PLACEHOLDER (added from persona review): confirm the password/continuity answers (nonprofit),
 // and 'no equipment sales or commissions', safety review, and scheduling-around-production (business).
+// PLACEHOLDER: confirm Eric still reviews for Ben Franklin Technology Partners (vita says 2013–present).
 
 export const nonprofitPage: Page = {
   path: '',
@@ -124,8 +129,8 @@ export const nonprofitPage: Page = {
     lede: 'Computers, Wi-Fi, backups, and email, set up properly by someone local who explains things in plain English. I can also help you find the discounts and grants that pay for it.',
     reassurance: 'Free 20-minute check-up · Written quote before any work',
     trust: [
-      'Based in Lycoming County, with on-site visits',
-      'Professor Emeritus, Pennsylvania College of Technology, after nearly 30 years teaching technology',
+      'Professor Emeritus and former dean, Pennsylvania College of Technology',
+      'Won more than $950,000 in National Science Foundation grants',
       'Computer science degree and PhD from Penn State',
     ],
   },
@@ -152,8 +157,22 @@ export const nonprofitPage: Page = {
     { name: 'Fix', detail: 'Work scheduled around your hours, with simple notes when it’s done.' },
   ],
   stepsNote: 'Optional monthly support afterward, if you want someone to call.',
+  figures: [
+    { figure: '$950K+', label: 'in federal grants won as principal investigator' },
+    { figure: '29 yrs', label: 'at Penn College as professor, department head, and dean' },
+    { figure: 'Since 2013', label: 'reviewing technology proposals for Ben Franklin Technology Partners' },
+    { figure: 'Local', label: 'based in Lycoming County, with on-site visits' },
+  ],
   aboutTitle: 'I spent nearly thirty years teaching technology.',
   bio: 'Eric Albert studied computer science at Penn State, earned a PhD there, and spent nearly thirty years teaching electronics, computer science, and manufacturing at Pennsylvania College of Technology, where he also served as department head and dean. Now Professor Emeritus, he helps local nonprofits get their technology working, and uses the grant-writing experience behind more than $950,000 in National Science Foundation awards to help them pay for it.',
+  highlights: [
+    'Professor Emeritus, Pennsylvania College of Technology',
+    'Former dean of the School of Industrial & Engineering Technology, and head of Manufacturing Engineering Technology',
+    'Principal investigator on more than $950,000 in National Science Foundation grants',
+    'Proposal reviewer for Ben Franklin Technology Partners since 2013',
+    'Helped create Penn College’s first bachelor’s degrees',
+    'Lead instructor, Penn College SMARTGirls STEM camp for girls entering grades 8–11, 2012–2018',
+  ],
   faqs: [
     {
       q: 'What does it cost?',
@@ -206,8 +225,8 @@ export const businessPage: Page = {
     reassurance: 'Free 20-minute assessment call · Written quote before any work',
     trust: [
       'Has built and installed automation systems',
+      'Professor Emeritus and former dean, Pennsylvania College of Technology',
       'Independent: no equipment sales or commissions',
-      'Taught manufacturing, automation, and robotics at Penn College for nearly 30 years',
     ],
   },
   servicesTitle: 'Where I can <em class=\'text-accent\'>help your shop.</em>',
@@ -244,8 +263,22 @@ export const businessPage: Page = {
     { name: 'Build & train', detail: 'Smaller projects are set up around your production schedule, and your team is trained. Larger systems go to a trusted integrator, with me on your side.' },
   ],
   stepsNote: 'Ongoing support is available once your systems are running.',
+  figures: [
+    { figure: '29 yrs', label: 'teaching manufacturing, automation, and robotics at Penn College' },
+    { figure: '4', label: 'engineering technology programs led through ABET accreditation' },
+    { figure: 'Since 2013', label: 'reviewing technology proposals for Ben Franklin Technology Partners' },
+    { figure: 'Dean', label: 'formerly, School of Industrial & Engineering Technology' },
+  ],
   aboutTitle: 'I’ve built it, and I taught it for thirty years.',
   bio: 'Eric Albert has built and installed automation systems and uses AI tools every day. He spent nearly thirty years at Pennsylvania College of Technology teaching manufacturing, automation, robotics, and electronics, including as head of Manufacturing Engineering Technology and dean of the School of Industrial & Engineering Technology, after studying computer science and earning a PhD at Penn State. He doesn’t sell equipment, so his advice is about what fits your shop.',
+  highlights: [
+    'Has built and installed automation systems',
+    'Taught manufacturing, automation, robotics, and electronics at Penn College for nearly 30 years',
+    'Former dean of the School of Industrial & Engineering Technology, and head of Manufacturing Engineering Technology',
+    'Led ABET accreditation for four programs: welding and fabrication, plastics and polymer, manufacturing, and civil engineering technology',
+    'Proposal reviewer for Ben Franklin Technology Partners since 2013',
+    'PhD from Penn State, plus a degree in computer science',
+  ],
   faqs: [
     {
       q: 'We’re a small shop. Is automation realistic for us?',

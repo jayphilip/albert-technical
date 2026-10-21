@@ -16,6 +16,18 @@ const { page } = Astro.props;
     <div class="md:col-span-9 md:col-start-4 lg:col-span-7 lg:col-start-4">
       <p class="text-[1.12rem] leading-relaxed text-ink/85">{page.bio}</p>
 
+      <h3 class="label mt-10 text-accent">Highlights</h3>
+      <ul class="mt-4 space-y-3 border-t border-ink pt-5">
+        {
+          page.highlights.map((h) => (
+            <li class="flex gap-3 leading-snug">
+              <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+              <span>{h}</span>
+            </li>
+          ))
+        }
+      </ul>
+
       <details class="group mt-10 border-t border-ink">
         <summary class="flex cursor-pointer list-none items-baseline justify-between py-4 hover:text-accent">
           <span class="font-serif text-xl">Full curriculum vitae</span>
