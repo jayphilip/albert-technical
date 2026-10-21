@@ -23,5 +23,7 @@ All copy lives in `src/data/site.ts`. Items marked `PLACEHOLDER` still need conf
 
 ## Deploy
 
-Pushing to `main` deploys a demo to GitHub Pages via `.github/workflows/deploy.yml`.
-The demo build is marked `noindex`; production builds are not.
+Pushing to `main` deploys to https://alberttechnical.com (GitHub Pages with a custom domain)
+via `.github/workflows/deploy.yml`. DNS is managed at Porkbun.
+
+Setting `PUBLIC_DEMO=true` at build time adds `noindex`, for preview deployments.

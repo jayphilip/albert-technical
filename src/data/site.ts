@@ -76,7 +76,7 @@ export const site = {
   business: 'Albert Technical Consulting',
   principal: 'Eric K. Albert, PhD',
   firstName: 'Eric',
-  url: 'https://alberttechnical.com', // PLACEHOLDER: confirm domain
+  url: 'https://alberttechnical.com',
   location: {
     county: 'Lycoming County',
     state: 'PA',
