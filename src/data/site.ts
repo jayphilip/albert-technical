@@ -86,7 +86,7 @@ export const site = {
     towns: ['Williamsport', 'South Williamsport', 'Montoursville', 'Muncy', 'Hughesville', 'Jersey Shore'],
   },
   contact: {
-    email: 'erickphd@aol.com',
+    email: 'eric@alberttechnical.com',
   },
   form: {
     /** Form backend URL, e.g. a Formspree endpoint 'https://formspree.io/f/abcd1234'.
