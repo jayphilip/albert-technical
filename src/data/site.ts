@@ -125,8 +125,8 @@ export const nonprofitPage: Page = {
     reassurance: 'Free 20-minute check-up · Written quote before any work',
     trust: [
       'Based in Lycoming County, with on-site visits',
-      'Taught electronics and computer science at Penn College for nearly 30 years',
-      'BS in Computer Science, Penn State',
+      'Professor Emeritus, Pennsylvania College of Technology, after nearly 30 years teaching technology',
+      'Computer science degree and PhD from Penn State',
     ],
   },
   servicesTitle: 'What I can <em class=\'text-accent\'>fix for you.</em>',
