@@ -9,7 +9,9 @@ import About from '../components/About.astro';
 import Faq from '../components/Faq.astro';
 import Book from '../components/Book.astro';
 import MobileCta from '../components/MobileCta.astro';
-import { nonprofitPage as page } from '../data/site';
+import { nonprofitPage, pageFor } from '../data/site';
+
+const page = pageFor(nonprofitPage);
 ---
 
 <Base page={page}>

@@ -64,6 +64,8 @@ const field =
               data-endpoint={site.form.endpoint ?? ''}
               data-email={site.contact.email}
               data-audience={page.audience}
+              data-subject={page.book.button}
+              data-thanks={page.book.thanks}
               class="rounded-sm bg-night-2 p-6 sm:p-9"
             >
               <div class="grid gap-5 sm:grid-cols-2">
@@ -100,10 +102,10 @@ const field =
                 type="submit"
                 class="mt-7 inline-flex items-center gap-3 rounded-sm bg-cta px-6 py-3.5 text-[1.05rem] font-semibold text-on-cta transition-colors hover:bg-cta-hover disabled:opacity-60"
               >
-                {`Request my ${page.cta.replace(/^(Book|Get) a /, '')}`} <span aria-hidden="true">→</span>
+                {page.book.button} <span aria-hidden="true">→</span>
               </button>
               <p class="mt-4 text-sm text-cream/75" data-status role="status">
-                Eric replies within one business day.
+                {page.book.note}
               </p>
             </form>
           )
@@ -138,7 +140,7 @@ const field =
           String(data.get('message')),
         ];
         report('checkup_request_email');
-        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(`Free consultation request (${form.dataset.audience})`)}&body=${encodeURIComponent(lines.join('\n'))}`;
+        location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(`${form.dataset.subject} (${form.dataset.audience})`)}&body=${encodeURIComponent(lines.join('\n'))}`;
         return;
       }
 
@@ -149,7 +151,7 @@ const field =
         if (!res.ok) throw new Error(String(res.status));
         report('checkup_request_sent');
         form.reset();
-        status.textContent = 'Thanks. Eric will be in touch within one business day.';
+        status.textContent = form.dataset.thanks ?? 'Thanks.';
       } catch {
         status.textContent = `That didn’t go through. Please email ${form.dataset.email} instead.`;
         button.disabled = false;

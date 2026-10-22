@@ -8,7 +8,9 @@ import About from '../components/About.astro';
 import Faq from '../components/Faq.astro';
 import Book from '../components/Book.astro';
 import MobileCta from '../components/MobileCta.astro';
-import { businessPage as page } from '../data/site';
+import { businessPage, pageFor } from '../data/site';
+
+const page = pageFor(businessPage);
 ---
 
 <Base page={page}>

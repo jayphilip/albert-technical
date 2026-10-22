@@ -16,6 +16,9 @@ npm run build    # static site in dist/
 
 All copy lives in `src/data/site.ts`. Items marked `PLACEHOLDER` still need confirming.
 
+- `site.status`: `'coming-soon'` shows an "Opening soon" badge, an early-list form, and no offers or prices.
+  Change it to `'open'` and push to start taking requests. Each page's coming-soon wording is in its `soon` block.
+
 - `site.form.endpoint`: form backend URL (e.g. Formspree). Without it, the request form opens a pre-filled email.
 - `call.calendlyUrl`: Calendly link. When set, it replaces the request form.
 - `caseStudies` and `testimonials`: the client section appears once either has entries.

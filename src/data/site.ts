@@ -73,10 +73,38 @@ export interface Page {
   /** Strongest facts from the record, shown above the collapsible CV. */
   highlights: string[];
   faqs: Faq[];
-  book: { title: string; titleEm: string; lede: string; placeholder: string };
+  book: Book;
+  /** Wording used while site.status is 'coming-soon'; see pageFor(). */
+  soon: {
+    kicker: string;
+    cta: string;
+    description: string;
+    lede: string;
+    reassurance: string;
+    stepsTitle: string;
+    bio: string;
+    book: Book;
+    /** Adjusts the FAQ list, e.g. drops answers about prices. */
+    faqs: (faqs: Faq[]) => Faq[];
+  };
+}
+
+export interface Book {
+  title: string;
+  titleEm: string;
+  lede: string;
+  placeholder: string;
+  /** Form submit button and email subject. */
+  button: string;
+  /** Line under the button, and the message shown after sending. */
+  note: string;
+  thanks: string;
 }
 
 export const site = {
+  /** 'coming-soon' while registration is finished: no offers, button joins an early list.
+   *  Change to 'open' and push to start taking requests. */
+  status: 'coming-soon' as 'coming-soon' | 'open',
   business: 'Albert Technical Consulting',
   principal: 'Eric K. Albert, PhD',
   firstName: 'Eric',
@@ -208,6 +236,35 @@ export const nonprofitPage: Page = {
     titleEm: 'The first check-up is free.',
     lede: 'Twenty minutes by phone or video is usually enough to know what needs fixing and roughly what it will cost, whether or not you hire me.',
     placeholder: 'e.g. Our office computers are slow and the Wi-Fi keeps dropping.',
+    button: 'Request my free check-up',
+    note: 'Eric replies within one business day.',
+    thanks: 'Thanks. Eric will be in touch within one business day.',
+  },
+  soon: {
+    kicker: 'Nonprofit IT help · Lycoming County, PA',
+    cta: 'Join the early list',
+    description:
+      'Computer upgrades, Wi-Fi, backups, and practical AI for nonprofits in Williamsport and Lycoming County, PA. Opening soon; join the early list.',
+    lede: 'Computers, Wi-Fi, backups, and email, set up properly by someone local who explains things in plain English, plus help finding the discounts and grants that pay for it. Opening soon.',
+    reassurance: 'Opening soon · No obligation · One email when I open',
+    stepsTitle: 'How it will work <em class=\'text-accent\'>once I open.</em>',
+    bio: 'Eric Albert studied computer science at Penn State, earned a PhD there, and spent nearly thirty years teaching electronics, computer science, and manufacturing at Pennsylvania College of Technology, where he also served as department head and dean. Now Professor Emeritus, he is opening Albert Technical Consulting to help local nonprofits get their technology working, drawing on the grant-writing experience behind more than $950,000 in National Science Foundation awards.',
+    book: {
+      title: 'Opening soon.',
+      titleEm: 'Be the first to know.',
+      lede: 'Leave your name and what your organization could use help with. You’ll get one email when Albert Technical Consulting opens, and nothing else.',
+      placeholder: 'e.g. Our office computers are slow and the Wi-Fi keeps dropping.',
+      button: 'Join the early list',
+      note: 'No obligation. One email when I open.',
+      thanks: 'Thanks. You’re on the list, and Eric will email you when he opens.',
+    },
+    faqs: (faqs) => [
+      {
+        q: 'When are you opening?',
+        a: 'Soon. I’m finishing the business setup now. Join the early list and you’ll hear as soon as I’m taking on work.',
+      },
+      ...faqs.filter((f) => f.q !== 'What does it cost?'),
+    ],
   },
 };
 
@@ -314,6 +371,35 @@ export const businessPage: Page = {
     titleEm: 'The first call is free.',
     lede: 'Twenty minutes is usually enough to know whether automation or AI makes sense for you, and roughly what it would take.',
     placeholder: 'e.g. We hand-pack about 2,000 parts a day and want to know if a robot makes sense.',
+    button: 'Request my free assessment',
+    note: 'Eric replies within one business day.',
+    thanks: 'Thanks. Eric will be in touch within one business day.',
+  },
+  soon: {
+    kicker: 'Automation & AI for businesses and manufacturers · Lycoming County, PA',
+    cta: 'Join the early list',
+    description:
+      'Automation, robotics, and practical AI for manufacturers and small businesses in Williamsport and Lycoming County, PA. Opening soon; join the early list.',
+    lede: 'Short on people for the repetitive jobs? Albert Technical Consulting will help local manufacturers and small businesses find where automation and AI actually pay off. Opening soon.',
+    reassurance: 'Opening soon · No obligation · One email when I open',
+    stepsTitle: 'How it will work <em class=\'text-accent\'>once I open.</em>',
+    bio: 'Eric Albert has built and installed automation systems and uses AI tools every day. He spent nearly thirty years at Pennsylvania College of Technology teaching manufacturing, automation, robotics, and electronics, including as head of Manufacturing Engineering Technology and dean of the School of Industrial & Engineering Technology, after studying computer science and earning a PhD at Penn State. He is opening Albert Technical Consulting to help local businesses and manufacturers put automation and AI to work.',
+    book: {
+      title: 'Opening soon.',
+      titleEm: 'Be the first to know.',
+      lede: 'Tell me a little about your operation. You’ll get one email when Albert Technical Consulting opens, and nothing else.',
+      placeholder: 'e.g. We hand-pack about 2,000 parts a day and want to know if a robot makes sense.',
+      button: 'Join the early list',
+      note: 'No obligation. One email when I open.',
+      thanks: 'Thanks. You’re on the list, and Eric will email you when he opens.',
+    },
+    faqs: (faqs) => [
+      {
+        q: 'When are you opening?',
+        a: 'Soon. I’m finishing the business setup now. Join the early list and you’ll hear as soon as I’m taking on projects.',
+      },
+      ...faqs.filter((f) => f.q !== 'What does it cost?'),
+    ],
   },
 };
 
@@ -390,3 +476,21 @@ export const about = {
     },
   ] satisfies RecordGroup[],
 };
+
+export const isOpen = site.status === 'open';
+
+/** The page as visitors should see it right now: open wording, or the coming-soon version. */
+export function pageFor(page: Page): Page {
+  if (isOpen) return page;
+  const { soon } = page;
+  return {
+    ...page,
+    cta: soon.cta,
+    description: soon.description,
+    hero: { ...page.hero, kicker: soon.kicker, lede: soon.lede, reassurance: soon.reassurance },
+    stepsTitle: soon.stepsTitle,
+    bio: soon.bio,
+    book: soon.book,
+    faqs: soon.faqs(page.faqs),
+  };
+}
